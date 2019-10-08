@@ -1,0 +1,35 @@
+<template>
+    <header>
+        <div class="container header_container">
+            <div class="logo">
+                <router-link to="/">PLAYER</router-link>
+            </div>
+            <div class="login" v-if="!isAuth">
+                <router-link to="/signin">
+                <img :src="require('../../assets/images/login.png')" alt="Log in">
+                </router-link>
+            </div>
+            <div v-if="isAuth">
+                <ul>
+                    <li><span @click="logoutUser">登出</span></li>
+                    <li><router-link to="/dashboard">Dashboard</router-link></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+</template>
+
+<script>
+export default {
+    computed:{
+        isAuth(){
+            return this.$store.getters['admin/isAuth']
+        }
+    },
+    methods:{
+        logoutUser(state){
+            this.$store.commit('admin/logoutUser')
+        }
+    }
+}
+</script>
